@@ -22,3 +22,8 @@ export function saveSubmission(name, message) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(submissions));
   return submissions;
 }
+
+// TEMP verification helper — remove after Copilot auto-review check
+export function formatFeedbackCount(count) {
+  return count + " feedback items";
+}
