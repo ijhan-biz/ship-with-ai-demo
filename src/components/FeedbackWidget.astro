@@ -1,26 +1,26 @@
 ---
-// Feedback / questions widget — the one interactive, code-bearing feature
-// on the site. Client-side only (works on static GitHub Pages, no backend).
+// 사이트의 유일한 대화형 기능인 질문과 피드백 위젯입니다.
+// 클라이언트에서만 실행합니다(백엔드 없이 정적 GitHub Pages에서 작동).
 //
-// Carries two intentionally seeded issues for the live demo — do not fix:
-//   - §5.1: renders submissions with an outdated `marked` (0.3.19), which
-//     does not sanitise its output. Flagged by Dependabot.
-//   - §5.5: the submit handler (src/lib/feedback.js) has no input validation.
-//     Flagged by Copilot Code Review.
+// 라이브 데모를 위해 의도적으로 남긴 두 가지 문제입니다. 미리 수정하지 마세요.
+//   - §5.1: 출력의 위험 요소를 제거하지 않는 오래된 `marked` (0.3.19)로
+//     제출 내용을 렌더링합니다. Dependabot의 탐지 대상입니다.
+//   - §5.5: 제출 처리 함수(src/lib/feedback.js)에 입력값 검증이 없습니다.
+//     Copilot Code Review에서 확인할 항목입니다.
 ---
 <section class="card" id="feedback-widget">
-  <h2>Questions &amp; feedback</h2>
-  <p>Leave a question or comment about this session — it renders below, right in your browser.</p>
+  <h2>질문과 피드백</h2>
+  <p>세션에 대한 질문이나 의견을 남겨 주세요. 작성한 내용은 현재 브라우저에서 아래에 표시됩니다.</p>
   <form id="feedback-form">
     <div class="field">
-      <label for="feedback-name">Name</label>
-      <input id="feedback-name" name="name" type="text" placeholder="Ada" />
+      <label for="feedback-name">이름</label>
+      <input id="feedback-name" name="name" type="text" placeholder="홍길동" />
     </div>
     <div class="field">
-      <label for="feedback-message">Message (Markdown supported)</label>
-      <textarea id="feedback-message" name="message" rows="3" placeholder="What did you think?"></textarea>
+      <label for="feedback-message">메시지 (Markdown 지원)</label>
+      <textarea id="feedback-message" name="message" rows="3" placeholder="세션에 대한 질문이나 의견을 남겨 주세요."></textarea>
     </div>
-    <button type="submit">Submit</button>
+    <button type="submit">제출</button>
   </form>
   <div id="feedback-list" aria-live="polite"></div>
 </section>
@@ -53,15 +53,15 @@
 </style>
 
 <script>
-  // Outdated markdown renderer (see package.json) — genuinely used here to
-  // turn each submission's message into HTML. Old versions do not sanitise.
+  // 오래된 Markdown 렌더러(package.json 참조)로 제출 메시지를 HTML로 변환합니다.
+  // 이 버전은 출력의 위험 요소를 제거하지 않습니다.
   import { marked } from 'marked';
   import { loadSubmissions, saveSubmission } from '../lib/feedback.js';
   import { FEEDBACK_ANALYTICS_TOKEN } from '../lib/analytics-config.js';
 
-  // Demo-only: would normally authenticate a feedback-analytics beacon.
-  // FEEDBACK_ANALYTICS_TOKEN is a fake placeholder — see analytics-config.js.
-  console.debug('feedback widget ready', FEEDBACK_ANALYTICS_TOKEN.slice(0, 4));
+  // 데모 전용: 실제 서비스에서는 피드백 분석 요청을 인증하는 용도입니다.
+  // FEEDBACK_ANALYTICS_TOKEN은 데모용 가짜 시크릿입니다(analytics-config.js 참조).
+  console.debug('피드백 위젯 준비 완료', FEEDBACK_ANALYTICS_TOKEN.slice(0, 4));
 
   const form = document.getElementById('feedback-form');
   const list = document.getElementById('feedback-list');
@@ -73,7 +73,7 @@
       .reverse()
       .map((s) => {
         const html = marked(s.message || '');
-        const who = s.name || 'Anonymous';
+        const who = s.name || '익명';
         const when = new Date(s.submittedAt).toLocaleString();
         return `<div class="feedback-item"><div class="meta">${who} · ${when}</div>${html}</div>`;
       })

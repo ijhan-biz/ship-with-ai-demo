@@ -1,28 +1,34 @@
 ---
 import Layout from '../layouts/Layout.astro';
 ---
-<Layout title="Do It Yourself">
-  <h1>Do it yourself</h1>
+<Layout title="직접 해보기">
+  <h1>직접 해보기</h1>
   <p>
-    Everything in this pipeline is free on a public repository, and enterprises can enforce the
-    same protections org-wide by policy. Clone this repo and turn it on:
+    공개 저장소에서는 여러 보안 기능을 무료로 사용할 수 있습니다. Copilot 기능을 포함한
+    사용 범위는 요금제와 권한에 따라 다르며, 기업에서는 정책으로 조직 전체에 보호 설정을
+    적용할 수 있습니다. 이 저장소를 복제한 뒤 필요한 기능을 설정하세요.
   </p>
-  <pre>git clone https://github.com/anothergeorgecoldham/ship-with-ai.git
-cd ship-with-ai
+  <pre>git clone https://github.com/ijhan-biz/ship-with-ai-demo.git
+cd ship-with-ai-demo
 npm install
 npm run dev</pre>
-  <h2>In your repo settings</h2>
+  <p>
+    위 주소는 한국어 초기 데모용 사본입니다.
+    <a href="https://github.com/anothergeorgecoldham/ship-with-ai">영문 원본 자료</a>와 구분하세요.
+    의도된 취약점과 기존 실행 오류가 남아 있으므로 운영 환경에 그대로 배포하지 마세요.
+  </p>
+  <h2>저장소에서 설정하기</h2>
   <ul>
-    <li><strong>Settings → Code security</strong> — enable Dependabot alerts, Dependabot security updates, dependency review, code scanning, and secret scanning with push protection.</li>
-    <li><strong>Settings → Copilot</strong> — enable Copilot Code Review and Agent Merge (auto-merge on green checks).</li>
-    <li><strong>Settings → Pages</strong> — set Source to "GitHub Actions" so <code>.github/workflows/deploy.yml</code> can publish the site.</li>
-    <li><strong><code>.github/dependabot.yml</code></strong> — already configured in this repo for npm version updates.</li>
+    <li><strong>설정 → 코드 보안(Settings → Code security)</strong> — Dependabot 알림과 보안 업데이트, 의존성 검토, 코드 검사, 시크릿 검사와 푸시 보호를 활성화하세요.</li>
+    <li><strong>설정 → Copilot(Settings → Copilot)</strong> — 사용 가능한 Copilot Code Review와 Agent Merge 설정을 확인하세요. 검사 통과 후 자동 병합하려면 관련 권한과 저장소의 자동 병합 설정도 필요합니다.</li>
+    <li><strong>설정 → Pages(Settings → Pages)</strong> — 게시 소스(Source)를 "GitHub Actions"로 설정하면 <code>.github/workflows/deploy.yml</code>에서 사이트를 게시할 수 있습니다.</li>
+    <li><strong><code>.github/dependabot.yml</code></strong> — 이 저장소에는 npm 버전 업데이트 설정이 이미 포함되어 있습니다.</li>
   </ul>
-  <h2>Resources</h2>
+  <h2>참고 자료</h2>
   <ul>
-    <li><a href="https://owasp.org/Top10/2025/A03_2025-Software_Supply_Chain_Failures/">OWASP Top 10:2025 — A03 Software Supply Chain Failures</a></li>
-    <li><a href="https://docs.github.com/en/code-security/dependabot">GitHub Docs — Dependabot</a></li>
-    <li><a href="https://docs.github.com/en/code-security/secret-scanning">GitHub Docs — Secret scanning</a></li>
-    <li><a href="https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions">GitHub Docs — Security hardening for GitHub Actions</a></li>
+    <li><a href="https://owasp.org/Top10/2025/A03_2025-Software_Supply_Chain_Failures/">OWASP Top 10:2025 — A03 소프트웨어 공급망 실패</a></li>
+    <li><a href="https://docs.github.com/en/code-security/dependabot">GitHub 문서 — Dependabot</a></li>
+    <li><a href="https://docs.github.com/en/code-security/secret-scanning">GitHub 문서 — 시크릿 검사</a></li>
+    <li><a href="https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions">GitHub 문서 — GitHub Actions 보안 강화</a></li>
   </ul>
 </Layout>

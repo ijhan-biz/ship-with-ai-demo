@@ -1,105 +1,121 @@
-# RUNSHEET — "Ship with AI" live demo
+# RUNSHEET — "Ship with AI" 라이브 데모
 
-For anyone re-delivering AI Genius S5E3 in another language/region. This walks through the five
-capability beats plus Beat 0, using the issues already seeded in this repo. **Do not pre-fix
-anything below** — the demo depends on these being present when you start.
+AI Genius 시즌 5 에피소드 3을 다른 언어나 지역에서 진행하는 발표자를 위한 대본입니다.
+이 저장소에 의도적으로 남긴 데모 문제를 활용해 시작 단계와 다섯 가지 기능을 보여 줍니다.
+**아래 문제를 미리 수정하지 마세요.** 데모를 시작할 때 문제가 남아 있어야 합니다.
 
-## Before you go live
+**아래 흐름은 목표·예상 시나리오이며, 실제 에이전트 실행이나 병합·배포가 완료되었다는 기록이 아닙니다.**
+기능과 탐지 결과는 환경과 권한, 변경 내용에 따라 달라집니다. 실제 결과를 확인한 뒤 설명하세요.
+초기 저장소에는 보안 문제가 남아 있으므로 운영 환경에 그대로 사용하지 마세요.
 
-- Repo is **public**, with Copilot Code Review and Agent Merge enabled (Settings → Copilot).
-- Code scanning, Dependabot alerts, dependency review, and secret scanning + push protection are
-  all enabled (Settings → Code security).
-- Pages → Source is set to **GitHub Actions**.
-- Confirm the site is already deployed once (so you have a "before" URL to contrast with the
-  "after" at the end).
+## 방송 전 확인 사항
 
-## Beat 0 — Issue → PR
+- 저장소가 **공개**인지, Copilot Code Review와 Agent Merge 시나리오에 필요한 기능·권한이
+  활성화되어 있는지 확인하세요(설정 → Copilot, Settings → Copilot). 세부 준비 사항은 `README.md`를 참고하세요.
+- 코드 검사, Dependabot 알림, 의존성 검토, 시크릿 검사와 푸시 보호가 활성화되어 있는지
+  확인하세요(설정 → 코드 보안, Settings → Code security).
+- Pages → 소스(Source)가 **GitHub Actions**로 설정되어 있는지 확인하세요.
+- 비교할 "변경 전" URL이 필요하면 실제 배포 상태를 먼저 확인하세요.
+  초기 상태에서는 보안 게이트 실패나 Pages 설정 문제로 배포가 완료되지 않았을 수 있습니다.
+  로컬 미리보기를 사용했다면 원격 배포와 구분해서 설명하세요.
 
-File this issue (also available as the default template under **New issue**):
+## 0단계 — 이슈 → PR
 
-> **Title:** Add Episode 3 lesson page / update the feedback widget
+다음 이슈를 등록하세요. **새 이슈(New issue)**의 기본 템플릿으로도 제공됩니다.
+
+> **제목:** 에피소드 3 학습 페이지 추가 / 피드백 위젯 업데이트
 >
-> Add a short lesson page (or update an existing one) covering the Episode 3 talking point, and
-> tighten the feedback widget's markup so it reads cleanly next to the new content.
+> 에피소드 3의 핵심 내용을 다루는 짧은 학습 페이지를 추가하거나 기존 페이지를 업데이트하세요.
+> 새 콘텐츠와 자연스럽게 어울리도록 피드백 위젯의 마크업도 정리하세요.
 >
-> Acceptance criteria: new/updated page renders under the site nav; feedback widget still submits
-> and renders a submission end-to-end; `npm run build` succeeds locally.
+> 완료 기준: 추가하거나 수정한 페이지가 사이트 탐색 메뉴 아래에 표시되며, 본문이 짧고 번역하기 쉬움.
+> 피드백 위젯에서 제출부터 제출 내용 표시까지 정상 동작함. 로컬에서 `npm run build`가 성공함.
 
-Assign it to the **Copilot coding agent**. It drafts the implementation and opens a PR.
+이 이슈를 **Copilot 코딩 에이전트**에 할당하세요.
+구현 초안을 작성하고 풀 리퀘스트(PR)를 생성하는 것이 예상 흐름입니다. 실제 생성 결과를 확인하세요.
 
-**Talking point:** *"AI wrote it fast, and even wired the pipeline — but would you ship it as-is?"*
+**발표 요점:** *"AI가 빠르게 코드를 작성하고 파이프라인까지 연결했습니다. 그렇다면 이대로 배포해도 될까요?"*
 
-## Beat 1 — GitHub Copilot Code Review
+## 1단계 — GitHub Copilot 코드 리뷰
 
-Copilot reviews the PR and should leave inline comments calling out, wherever they're still
-present in the diff:
+Copilot이 PR을 검토하면 다음 항목에 인라인 의견을 남겼는지 확인하세요.
+변경 내용에 해당 문제가 있어야 검토 대상이 될 수 있으며, 새 PR마다 모두 탐지된다고 보장할 수는 없습니다.
 
-- `withastro/action@v3` pinned by tag, not a full commit SHA (`.github/workflows/deploy.yml`)
-- `permissions: write-all` instead of least privilege (`.github/workflows/deploy.yml`)
-- No input validation in the feedback submit handler (`src/lib/feedback.js`)
+- 전체 commit SHA가 아닌 태그로 참조하는 `withastro/action@v3` (`.github/workflows/deploy.yml`)
+- 최소 권한 대신 사용하는 `permissions: write-all` (`.github/workflows/deploy.yml`)
+- 피드백 제출 처리 함수의 입력값 검증 누락 (`src/lib/feedback.js`)
 
-**Talking point:** *"The AI as your reviewer — it reads intent, not just signatures."*
+**발표 요점:** *"AI 리뷰어는 알려진 패턴만 찾는 것이 아니라 코드의 의도까지 살펴봅니다."*
 
-## Beat 2 — Agent Merge ⭐
+## 2단계 — Agent Merge ⭐
 
-Agent Merge pushes fixes for the Beat 1 findings — pin the Action to a SHA, scope the
-`permissions` block, add validation — and merges once checks are green.
+Agent Merge가 1단계의 문제를 수정하고 푸시하는 것이 목표입니다.
+Action을 commit SHA로 고정하고, `permissions` 범위를 제한하고, 입력값 검증을 추가한 뒤
+검사를 통과하면 병합하는 시나리오입니다. 수정 내용, 검사 결과, 실제 병합 여부를 확인하세요.
 
-Separately, once Dependabot opens its version-bump PR for `marked` (Beat 4), Agent Merge merges
-that too, the same way.
+별도로 Dependabot이 `marked` 버전 업데이트 PR을 생성하면(4단계),
+Agent Merge가 같은 방식으로 병합하는 흐름도 확인하세요.
 
-**Talking point:** *"Agentic supply-chain hygiene — nobody clicked merge on that dependency bump."*
+**발표 요점(실제 자동 병합을 확인한 경우):** *"에이전트가 소프트웨어 공급망 유지 관리를 맡았습니다.
+이 의존성 업데이트는 사람이 병합 버튼을 누르지 않아도 반영됐습니다."*
 
-## Beat 3 — GitHub Actions (CI/CD)
+## 3단계 — GitHub Actions (CI/CD)
 
-Show the now-hardened `deploy.yml` run: build → `npm audit` gate → deploy to Pages.
+보안 개선 후 `deploy.yml`의 **Build and deploy** 실행 결과를 보여 주세요.
+현재 워크플로 순서는 의존성 설치 → `npm audit` 보안 게이트 → 사이트 빌드 → Pages 배포입니다.
+초기 상태에서는 보안 게이트가 실패할 수 있으므로, 빌드·배포 성공 여부를 실행 기록에서 확인하세요.
 
-**Talking point:** *"The pipeline that builds and ships your code needs the same scrutiny as the
-code itself."*
+**발표 요점:** *"코드를 빌드하고 배포하는 파이프라인도 코드 자체만큼 꼼꼼히 검토해야 합니다."*
 
-## Beat 4 — AI-assisted security review
+## 4단계 — AI 지원 보안 검토
 
-Point out, in whichever order they've actually surfaced:
+실제로 확인된 순서대로 다음 결과를 설명하세요.
 
-- **Dependabot alert** on `marked@0.3.19` (`package.json`) — genuinely used by the feedback widget
-  to render submissions; old enough to predate output sanitisation.
-- **Secret scanning** flags the fake token in `src/lib/analytics-config.js` — clearly commented as
-  a demo placeholder, never a real credential.
+- `marked@0.3.19`에 대한 **Dependabot 알림** (`package.json`) — 피드백 위젯에서
+  제출 내용을 렌더링할 때 실제로 사용하며, 출력의 위험 요소를 제거하지 않는 오래된 버전입니다.
+- **시크릿 검사(Secret scanning)** — `src/lib/analytics-config.js`의 데모용 가짜 시크릿을
+  확인 대상으로 삼습니다. 실제 자격 증명이 아닌 데모용 값임이 주석에 명시되어 있습니다.
+  지원되는 패턴과 설정에 따라 탐지되지 않을 수 있으므로, 알림이 없으면 탐지됐다고 설명하지 마세요.
 
-**Talking point:** *"This is the supply-chain layer — distinct from Beat 1's code review."*
+**발표 요점:** *"이것은 1단계의 코드 리뷰와 구분되는 소프트웨어 공급망 보안입니다."*
 
-## Beat 5 — End-to-end lifecycle automation
+## 5단계 — 개발 생애주기 전체 자동화
 
-Zoom out to the architecture slide:
+전체 구조를 보여 주며 각 단계를 연결하세요.
 
 ```
-Issue → Copilot drafts PR → Copilot Code Review → Agent Merge →
-GitHub Actions (build + supply-chain security + deploy) → GitHub Pages
+이슈 → Copilot이 PR 초안 작성 → Copilot Code Review → Agent Merge →
+GitHub Actions (빌드 + 공급망 보안 + 배포) → GitHub Pages
 ```
 
-**Talking point:** *"Set it up once; every future change keeps the supply chain healthy."*
+**발표 요점:** *"필요한 설정을 갖추면 이후 변경에도 같은 흐름을 적용해 소프트웨어 공급망을 지속적으로 관리할 수 있습니다."*
 
-## Payoff
+## 마무리
 
-Visit the deployed site's new/updated page live: *"The lesson you can read was just shipped
-through this exact pipeline."*
+실제 배포가 확인되면 사이트에서 추가하거나 수정한 페이지를 여세요.
+*"지금 보고 있는 학습 페이지가 바로 이 파이프라인을 거쳐 배포됐습니다."*
+완료되지 않았다면 로컬 미리보기인지 명확히 밝히고, 아직 확인하지 못한 단계를 설명하세요.
 
-## Optional beats (skip to stay tight)
+## 선택 단계 — 시간이 부족하면 생략하세요
 
-- **§5.4 — Missing SRI on a third-party CDN script.** If you add a `<script src="https://cdn…">`
-  tag without an `integrity`/`crossorigin` attribute, Copilot Code Review should flag it as a
-  second supply-chain beat.
-- **§5.6 — XSS via the outdated Markdown renderer.** Before the Beat 2 fix, submitting
-  `<img src=x onerror="alert('xss')">` in the feedback widget executes in the browser, because
-  `marked@0.3.19` doesn't sanitise. Both Copilot Code Review and CodeQL should flag it. Fix is
-  escaping/sanitising the rendered output.
+- **§5.4 — 외부 CDN 스크립트의 SRI 누락.** `integrity`/`crossorigin` 속성 없이
+  `<script src="https://cdn…">` 태그를 추가한 경우, Copilot Code Review가 또 다른
+  소프트웨어 공급망 문제로 지적하는지 확인하는 시나리오입니다. 탐지를 보장하지는 않습니다.
+- **§5.6 — 오래된 Markdown 렌더러를 통한 XSS.** 원본 데모 예시
+  `<img src=x onerror="alert('xss')">`는 2단계 수정 전 위젯에서 스크립트 실행을 유발할 수 있습니다.
+  `marked@0.3.19`가 출력의 위험 요소를 제거하지 않기 때문입니다.
+  이 예시는 설명용으로만 보존하며 현지화 검증에서는 실행하지 않습니다.
+  Copilot Code Review와 CodeQL의 실제 탐지 여부는 설정과 분석 결과를 확인하세요.
+  개선 방법은 렌더링 결과를 이스케이프하거나 위험 요소를 제거하는 것입니다.
 
-## What each tool is expected to catch
+## 도구별 예상 확인 항목
 
-| Seeded issue | Where | Caught by |
+아래 표는 확인할 대상과 도구이며, 탐지 완료 기록이나 탐지 보장이 아닙니다.
+
+| 의도적으로 남긴 데모 문제 | 위치 | 확인 도구 |
 |---|---|---|
-| Outdated `marked` dependency | `package.json` | Dependabot |
-| Unpinned third-party Action | `.github/workflows/deploy.yml` | Copilot Code Review |
-| Over-broad `permissions: write-all` | `.github/workflows/deploy.yml` | Copilot Code Review |
-| Fake committed token | `src/lib/analytics-config.js` | Secret scanning / push protection |
-| Missing input validation | `src/lib/feedback.js` | Copilot Code Review |
+| 오래된 `marked` 의존성 | `package.json` | Dependabot |
+| commit SHA로 고정되지 않은 외부 Action | `.github/workflows/deploy.yml` | Copilot Code Review |
+| 과도한 `permissions: write-all` 권한 | `.github/workflows/deploy.yml` | Copilot Code Review |
+| 커밋된 데모용 가짜 시크릿 | `src/lib/analytics-config.js` | 시크릿 검사 / 푸시 보호(탐지되지 않을 수 있음) |
+| 입력값 검증 누락 | `src/lib/feedback.js` | Copilot Code Review |

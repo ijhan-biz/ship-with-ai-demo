@@ -1,28 +1,28 @@
 ---
-name: Feature request
-about: Propose a small change to the Ship with AI site (used to kick off the live demo, Beat 0)
-title: "Add Episode 3 lesson page / update the feedback widget"
+name: 기능 요청
+about: Ship with AI 사이트의 작은 변경을 제안하세요(라이브 데모 0단계 시작용)
+title: "에피소드 3 학습 페이지 추가 / 피드백 위젯 업데이트"
 labels: enhancement
 assignees: ''
 ---
 
-## What
+## 요청 내용
 
-Add a short lesson page (or update an existing one) covering the Episode 3 talking point, and
-tighten the feedback widget's markup so it reads cleanly next to the new content.
+에피소드 3의 핵심 내용을 다루는 짧은 학습 페이지를 추가하거나 기존 페이지를 업데이트하세요.
+새 콘텐츠와 자연스럽게 어울리도록 피드백 위젯의 마크업도 정리하세요.
 
-## Why
+## 요청 이유
 
-Attendees cloning the repo after the talk should find the lesson content matches what was shown
-live, including whatever the widget looked like by the end of the demo.
+발표 후 저장소를 복제하는 참가자가 라이브에서 본 것과 같은 학습 내용을 확인할 수 있어야 합니다.
+위젯도 데모 종료 시점의 모습과 일치해야 합니다.
 
-## Acceptance criteria
+## 완료 기준
 
-- [ ] New/updated page renders under the site nav with a short, translation-friendly write-up
-- [ ] Feedback widget still submits and renders a submission end-to-end
-- [ ] `npm run build` succeeds locally
+- [ ] 추가하거나 수정한 페이지가 사이트 탐색 메뉴 아래에 표시되며, 본문이 짧고 번역하기 쉬움
+- [ ] 피드백 위젯에서 제출부터 제출 내용 표시까지 정상 동작함
+- [ ] 로컬에서 `npm run build`가 성공함
 
-## Notes for the assignee
+## 담당자 안내
 
-Assign this to the Copilot coding agent. It's expected to draft a small PR — keep the change
-scoped to one page and/or the widget, not a site-wide rewrite.
+이 이슈를 Copilot 코딩 에이전트에 할당하세요. 작은 풀 리퀘스트(PR) 초안을 작성하는 것이 목표입니다.
+사이트 전체를 다시 작성하지 말고 페이지 하나 또는 위젯으로 변경 범위를 제한하세요.

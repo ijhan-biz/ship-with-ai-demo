@@ -4,17 +4,18 @@ import Layout from '../../layouts/Layout.astro';
 <Layout title="Agent Merge">
   <h1>Agent Merge</h1>
   <p>
-    Once Copilot Code Review leaves its comments, Agent Merge is what actually closes the loop.
-    It reads the review findings, pushes the fixes — pin the Action, scope the token, validate
-    the input — and merges the pull request the moment checks go green.
+    Copilot Code Review가 의견을 남기면 Agent Merge가 후속 작업을 맡는 시나리오입니다.
+    리뷰 결과를 읽고 Action 버전 고정, 토큰 권한 제한, 입력값 검증 등의 수정 사항을
+    푸시한 뒤, 검사를 통과하면 풀 리퀘스트(PR)를 병합하는 흐름을 목표로 합니다.
+    실제 실행 여부는 환경과 권한에 따라 확인해야 합니다.
   </p>
   <p>
-    The same pattern handles routine hygiene: when Dependabot opens a version-bump PR for an
-    outdated package, Agent Merge merges it automatically once the build and security checks
-    pass. No one has to remember to click merge on a dependency bump ever again.
+    반복적인 유지 관리에도 같은 방식을 적용할 수 있습니다. Dependabot이 오래된 패키지의
+    버전 업데이트 PR을 생성하면, 빌드와 보안 검사를 통과한 후 Agent Merge가 자동으로
+    병합하도록 구성합니다. 의존성 업데이트를 사람이 매번 기억하고 병합해야 하는 부담을 줄입니다.
   </p>
   <div class="card">
-    This is the headline capability in the live demo: an AI-written PR goes in with real issues,
-    and comes out the other side fixed and merged, without a human doing the mechanical work.
+    라이브 데모의 핵심 목표입니다. 실제 문제가 있는 AI 작성 PR을 수정하고 병합하는
+    반복 작업을 에이전트에 맡깁니다. 이 초기 저장소에서 해당 흐름의 완료가 검증된 것은 아닙니다.
   </div>
 </Layout>

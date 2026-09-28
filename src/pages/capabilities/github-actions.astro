@@ -4,19 +4,20 @@ import Layout from '../../layouts/Layout.astro';
 <Layout title="GitHub Actions (CI/CD)">
   <h1>GitHub Actions (CI/CD)</h1>
   <p>
-    <code>.github/workflows/deploy.yml</code> is what turns a merged pull request into a live
-    site. On every push to <code>main</code> it:
+    <code>.github/workflows/deploy.yml</code>은 병합된 풀 리퀘스트(PR)를 실제 사이트로
+    배포하는 워크플로입니다. <code>main</code>에 푸시할 때 다음 흐름을 실행하도록 구성합니다.
   </p>
   <ol>
-    <li>Installs dependencies with <code>npm ci</code></li>
-    <li>Builds the Astro site</li>
-    <li>Runs a security job — <code>npm audit</code> and dependency review — as a merge gate</li>
-    <li>Deploys the built site to GitHub Pages</li>
+    <li><code>npm ci</code>로 의존성 설치</li>
+    <li><code>npm audit</code> 보안 게이트 실행</li>
+    <li>검사를 통과하면 Astro 사이트 빌드</li>
+    <li>검사를 통과한 빌드 결과를 GitHub Pages에 배포</li>
   </ol>
+  <p>의존성 검토를 병합 게이트로 활용하려면 별도 설정이 필요합니다. 현재 워크플로에 포함된 보안 게이트는 <code>npm audit</code>입니다.</p>
   <p>
-    The workflow that ships in this repo is deliberately unhardened in one place: a third-party
-    Action pinned only by tag, and a broader-than-needed <code>permissions</code> block. That's
-    the CI/CD half of the supply-chain story — the pipeline that builds and deploys your code
-    needs the same scrutiny as the code itself.
+    이 저장소의 워크플로에는 의도적으로 보안 문제가 남아 있습니다. 외부 Action을
+    태그로만 참조하며 <code>permissions</code> 블록은 필요 이상의 권한을 부여합니다.
+    소프트웨어 공급망 보안에서 CI/CD가 중요한 이유입니다. 코드를 빌드하고 배포하는
+    파이프라인도 코드 자체만큼 꼼꼼히 검토해야 합니다.
   </p>
 </Layout>

@@ -1,19 +1,19 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 ---
-<Layout title="AI-assisted Security Review">
-  <h1>AI-assisted security review</h1>
+<Layout title="AI 지원 보안 검토">
+  <h1>AI 지원 보안 검토</h1>
   <p>
-    Separate from code review on a pull request, this is the automated layer that watches the
-    <em>supply chain</em> continuously:
+    풀 리퀘스트(PR)의 코드 리뷰와는 별개로,
+    <em>소프트웨어 공급망</em>을 지속적으로 점검하는 자동화 기능입니다.
   </p>
   <ul>
-    <li><strong>Dependabot alerts</strong> — flags the outdated Markdown renderer this site's feedback widget depends on, and opens the upgrade PR</li>
-    <li><strong>Dependency review</strong> — blocks a pull request from introducing a new vulnerable dependency</li>
-    <li><strong>Secret scanning with push protection</strong> — catches a credential before it's committed, and flags one that already was</li>
+    <li><strong>Dependabot 알림</strong> — 피드백 위젯이 사용하는 오래된 Markdown 렌더러의 알려진 취약점을 알립니다. 보안 업데이트를 설정하면 수정 가능한 항목에 업데이트 PR을 생성할 수 있습니다.</li>
+    <li><strong>의존성 검토</strong> — PR에 새로 추가되는 취약한 의존성을 확인합니다. 필수 검사로 설정하면 병합을 차단할 수 있습니다.</li>
+    <li><strong>시크릿 검사와 푸시 보호</strong> — 지원되는 자격 증명 패턴을 탐지해 푸시를 차단하거나 이미 커밋된 시크릿을 알립니다. 데모용 가짜 시크릿의 탐지를 보장하지는 않습니다.</li>
   </ul>
   <p>
-    Where Copilot Code Review looks at a diff, this layer looks at the whole dependency graph and
-    commit history — the exact surface OWASP's A03: Software Supply Chain Failures is about.
+    Copilot Code Review가 변경 내용을 살펴본다면, 이 기능들은 전체 의존성 그래프와
+    커밋 기록을 살펴봅니다. OWASP A03: 소프트웨어 공급망 실패가 다루는 영역입니다.
   </p>
 </Layout>
