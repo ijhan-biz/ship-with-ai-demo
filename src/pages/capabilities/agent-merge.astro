@@ -4,17 +4,17 @@ import Layout from '../../layouts/Layout.astro';
 <Layout title="Agent Merge">
   <h1>Agent Merge</h1>
   <p>
-    Once Copilot Code Review leaves its comments, Agent Merge is what actually closes the loop.
-    It reads the review findings, pushes the fixes — pin the Action, scope the token, validate
-    the input — and merges the pull request the moment checks go green.
+    리뷰에서 발견한 문제를 수정하고 변경 사항을 병합하는 에이전트 기능은 GitHub의 일반 자동 병합과
+    별개입니다. 이 공유 예제에서는 Agent Merge를 검증하지 않았습니다.
+    이 저장소에는 에이전트인 것처럼 동작하거나 리뷰 지적 사항을 자동으로 수정하는 워크플로가 없습니다.
   </p>
   <p>
-    The same pattern handles routine hygiene: when Dependabot opens a version-bump PR for an
-    outdated package, Agent Merge merges it automatically once the build and security checks
-    pass. No one has to remember to click merge on a dependency bump ever again.
+    저장소 설정 <code>allow_auto_merge</code>는 조건을 충족한 풀리퀘스트(PR)에 일반 자동 병합을
+    허용할 뿐입니다. Agent Merge를 활성화하거나 리뷰 지적 사항을 해결하지 않으며,
+    누가 수정했는지를 증명하지도 않습니다. Dependabot 업데이트에도 리뷰와 테스트가 필요합니다.
   </p>
   <div class="card">
-    This is the headline capability in the live demo: an AI-written PR goes in with real issues,
-    and comes out the other side fixed and merged, without a human doing the mechanical work.
+    이 공유 예제에서는 제안한 변경 사항과 통과한 검증 결과를 보여 준 뒤, 명시적인 승인을 받은
+    경우에만 수동으로 병합하세요. 이를 자동 병합이나 에이전트가 수행한 병합으로 설명하지 마세요.
   </div>
 </Layout>

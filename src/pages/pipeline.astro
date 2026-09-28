@@ -2,24 +2,24 @@
 import Layout from '../layouts/Layout.astro';
 const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 ---
-<Layout title="The Pipeline">
-  <h1>The pipeline</h1>
+<Layout title="파이프라인">
+  <h1>파이프라인</h1>
   <p>
-    Every change to this site — including the one that shipped it live — moves through the same
-    AI-assisted path from idea to production:
+    이 공유 예제는 구현된 빌드 검증 단계와 아직 검증이 필요한 에이전트 기능을 구분합니다.
+    명시적인 승인을 받은 뒤 다음 순서로 릴리스합니다.
   </p>
-  <pre>Issue → Copilot drafts a PR → Copilot Code Review → Agent Merge →
-GitHub Actions (build + supply-chain security + deploy) → GitHub Pages (live site)</pre>
-  <p>The loop repeats automatically on every future change. Five capabilities carry it:</p>
+  <pre>변경 제안 → 풀리퀘스트(PR) 리뷰 → 승인된 수동 병합 →
+GitHub Actions (빌드 + 공급망 보안 + 배포) → GitHub Pages (공개 사이트)</pre>
+  <p>자동 코드 리뷰는 원본 리허설에서 별도로 시연했으며, 이 공유 저장소의 설정은 별도 확인이 필요합니다. 다음 페이지에서 각 기능과 현재의 한계를 설명합니다.</p>
   <ol>
-    <li><a href={`${base}capabilities/copilot-code-review/`}>Copilot Code Review</a> — an AI reviewer on every pull request</li>
-    <li><a href={`${base}capabilities/agent-merge/`}>Agent Merge</a> — remediates findings and merges when checks are green</li>
-    <li><a href={`${base}capabilities/github-actions/`}>GitHub Actions (CI/CD)</a> — builds, gates, and deploys</li>
-    <li><a href={`${base}capabilities/security-review/`}>AI-assisted security review</a> — the supply-chain layer: dependencies, secrets, tokens</li>
-    <li><a href={`${base}capabilities/lifecycle-automation/`}>End-to-end lifecycle automation</a> — the whole loop, running on every change</li>
+    <li><a href={`${base}capabilities/copilot-code-review/`}>GitHub Copilot 코드 리뷰</a> — 이용 자격과 설정을 갖췄을 때 제공되는 AI 리뷰</li>
+    <li><a href={`${base}capabilities/agent-merge/`}>Agent Merge</a> — 이 공유 예제에서는 미검증이며 일반 자동 병합과는 별개</li>
+    <li><a href={`${base}capabilities/github-actions/`}>GitHub Actions (CI/CD)</a> — 빌드, 보안 게이트, 배포</li>
+    <li><a href={`${base}capabilities/security-review/`}>AI를 활용한 보안 검토</a> — 소프트웨어 공급망의 의존성, 시크릿, 토큰</li>
+    <li><a href={`${base}capabilities/lifecycle-automation/`}>개발 생애주기 전체의 자동화</a> — 작동하는 검증과 미검증 단계를 구분하기</li>
   </ol>
   <p>
-    See <a href={`${base}secure-supply-chain/`}>Secure your supply chain</a> for why the
-    security beats in this demo live in dependencies and CI/CD, not just application code.
+    이 데모가 애플리케이션 코드뿐 아니라 의존성과 CI/CD의 보안도 다루는 이유는
+    <a href={`${base}secure-supply-chain/`}>공급망 보안</a>에서 확인하세요.
   </p>
 </Layout>

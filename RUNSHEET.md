@@ -1,105 +1,132 @@
-# RUNSHEET — "Ship with AI" live demo
+# 진행표 — Ship with AI 라이브 데모
 
-For anyone re-delivering AI Genius S5E3 in another language/region. This walks through the five
-capability beats plus Beat 0, using the issues already seeded in this repo. **Do not pre-fix
-anything below** — the demo depends on these being present when you start.
+**AI Genius 시즌 5 에피소드 3 — AI로 완성하는 코드 리뷰부터 보안, 배포까지**
 
-## Before you go live
+이 저장소는 검증된 한국어 리허설 커밋 `be80d2111c8f8b9021d75a5577e7ff3df12a229e`를 바탕으로 만든
+**안전한 공유용 한국어 예제**입니다. 이전 demo seed 커밋 `a3e96f08013137c2f7cd8d409f937b60828f14fb`와
+원본의 과거 기준 `05cdada`는 로컬 기준본과 Git 이력에 보존하며 배포하지 않습니다.
+공유 예제의 변경 사항도 보안 수정을 유지하고 모든 검사를 통과해야 합니다.
+시연 장면을 재현하려고 `main`을 과거 상태로 되돌려 푸시하거나 알려진 취약점이 있는 코드를 배포하지 마세요.
 
-- Repo is **public**, with Copilot Code Review and Agent Merge enabled (Settings → Copilot).
-- Code scanning, Dependabot alerts, dependency review, and secret scanning + push protection are
-  all enabled (Settings → Code security).
-- Pages → Source is set to **GitHub Actions**.
-- Confirm the site is already deployed once (so you have a "before" URL to contrast with the
-  "after" at the end).
+## 라이브 시작 전
 
-## Beat 0 — Issue → PR
+- 업스트림이나 운영 프로젝트가 아닌, `ship-with-ai-demo` 공유 예제 작업 트리·저장소를 사용합니다.
+- Node 22 계열의 22.12+ 버전에서 `npm ci && npm test && npm audit --audit-level=high && npm run build`를
+  실행합니다. 한국어 입력·오류 안내를 포함한 테스트 44개 통과, 감사 취약점 0건과 9개 페이지 빌드 완료가 기대 결과입니다.
+- `http://localhost:4321/ship-with-ai-demo/`에서 로컬 미리보기를 열고 아래 인수 점검을 완료합니다.
+  포트가 다르면 Astro가 출력한 포트를 사용합니다.
+- 변경 사항은 풀리퀘스트(PR)로 검토하고 승인된 수동 병합으로 반영합니다.
+  게시 여부는 실제 CI와 배포 결과를 확인해 안내합니다.
+- 현재 [요금제별 기능 제공 범위](https://docs.github.com/en/copilot/get-started/plans)를 확인합니다.
+  공개 저장소의 모든 기능이 무료라고 안내하지 않습니다.
+- 로컬 빌드는 원격 CI·배포 결과가 아닙니다. 사이트가 배포되었다고 안내하기 전에
+  GitHub Pages 설정과 실제 원격 결과를 별도로 확인합니다.
 
-File this issue (also available as the default template under **New issue**):
+## 장면 0 — 검증한 범위와 미검증 범위 구분
 
-> **Title:** Add Episode 3 lesson page / update the feedback widget
->
-> Add a short lesson page (or update an existing one) covering the Episode 3 talking point, and
-> tighten the feedback widget's markup so it reads cleanly next to the new content.
->
-> Acceptance criteria: new/updated page renders under the site nav; feedback widget still submits
-> and renders a submission end-to-end; `npm run build` succeeds locally.
+- GitHub Copilot 자동 코드 리뷰: 원본 리허설에서 별도로 시연되었습니다. 공유 저장소의 자동 리뷰 설정은 별도 확인이 필요합니다.
+- 이슈 → 클라우드 에이전트: 미검증입니다. 이슈 템플릿은 향후 작업의 출발점일 뿐입니다.
+- Agent Merge: 미검증입니다. 실제와 다른 실행 주체를 내세우거나 자동 수정·병합을 주장하지 않습니다.
+- 공유 예제: 원본의 기능·보안 로직과 한국어 안내를 유지하며, 변경 시 로컬 검사와 브라우저 인수 점검을 수행합니다.
+- 인계받은 보안 수정 이력:
+  [ship-with-ai-rehearsal PR #34](https://github.com/ijhan-biz/ship-with-ai-rehearsal/pull/34)는
+  **사람의 명시적 승인 후 수동 병합**되었습니다.
+  [병합 커밋 `cfa05f3d682d7cf410024b019b099162b0e001b6`](https://github.com/ijhan-biz/ship-with-ai-rehearsal/commit/cfa05f3d682d7cf410024b019b099162b0e001b6),
+  [성공한 배포 실행 `36239337726`](https://github.com/ijhan-biz/ship-with-ai-rehearsal/actions/runs/36239337726).
+- 인계받은 한국어 버전 이력:
+  [ship-with-ai-rehearsal PR #39](https://github.com/ijhan-biz/ship-with-ai-rehearsal/pull/39),
+  [병합 커밋 `be80d2111c8f8b9021d75a5577e7ff3df12a229e`](https://github.com/ijhan-biz/ship-with-ai-rehearsal/commit/be80d2111c8f8b9021d75a5577e7ff3df12a229e),
+  [성공한 배포 실행 `36400202154`](https://github.com/ijhan-biz/ship-with-ai-rehearsal/actions/runs/36400202154).
+  **두 PR은 원본 리허설의 번호이며 공유 저장소의 PR 번호와 다릅니다.**
+- 위 이력은 이번 로컬 작업에서 새로 조회한 결과가 아니며, 공유 저장소의 원격 CI·배포나
+  에이전트 자동화의 증거도 아닙니다. `README.md`의 2026-09-26 기록 역시 원본 리허설의 과거 검증 결과입니다.
 
-Assign it to the **Copilot coding agent**. It drafts the implementation and opens a PR.
+**발표 요점:** *“시연으로 확인한 기능과 앞으로 검증할 워크플로를 구분합니다.”*
 
-**Talking point:** *"AI wrote it fast, and even wired the pipeline — but would you ship it as-is?"*
+## 장면 1 — GitHub Copilot 코드 리뷰
 
-## Beat 1 — GitHub Copilot Code Review
+실제 코드 리뷰 증거만 보여주고, 누가 수행했는지 정확히 밝힙니다. 과거 지적 사항에는
+태그 기반 GitHub Actions, `permissions: write-all`, 피드백 검증 누락이 있었습니다.
+현재 안전한 브랜치는 이를 수정했으므로 새 코드 리뷰에서 같은 지적이 모두 재현된다고 기대하거나 보장하지 않습니다.
 
-Copilot reviews the PR and should leave inline comments calling out, wherever they're still
-present in the diff:
+## 장면 2 — 승인된 수정과 수동 병합
 
-- `withastro/action@v3` pinned by tag, not a full commit SHA (`.github/workflows/deploy.yml`)
-- `permissions: write-all` instead of least privilege (`.github/workflows/deploy.yml`)
-- No input validation in the feedback submit handler (`src/lib/feedback.js`)
+원본 리허설 PR #34의 실제 변경 사항과 공유 예제에 유지된 코드를 보여줍니다. 확인한 SHA 고정, 최소 권한, 저장소 검증,
+갱신된 Marked, DOMPurify, 안전한 텍스트 생성이 핵심입니다.
+공개 전 검토자가 해당 변경 사항을 정확히 확인하고 승인해야 합니다. 수동 병합도 허가된 경우에만 수행합니다.
 
-**Talking point:** *"The AI as your reviewer — it reads intent, not just signatures."*
+`allow_auto_merge`는 일반적인 GitHub 자동 병합 허용 설정이며, Agent Merge나 자동 수정 시스템이 아닙니다.
+이 보안 수정이나 수동 병합을 에이전트 실행 결과로 소개하지 않습니다.
 
-## Beat 2 — Agent Merge ⭐
+## 장면 3 — GitHub Actions (CI/CD)
 
-Agent Merge pushes fixes for the Beat 1 findings — pin the Action to a SHA, scope the
-`permissions` block, add validation — and merges once checks are green.
+워크플로 정의와 실제로 확인 가능한 결과를 보여줍니다.
+`npm ci` → `npm test` → `npm audit --audit-level=high` → Astro 빌드·업로드 순서입니다.
+`main`에 푸시한 경우에만 배포 작업을 실행할 수 있습니다. PR과 수동 실행은 배포하지 않습니다.
+빌드 권한은 `contents: read`이며, 배포 작업에만 `pages: write` / `id-token: write`가 있습니다.
+Node 입력값은 22를 유지합니다. 의존성은 `npm ci`로 한 번만 설치하며, 명시적인
+빌드·GitHub Pages 아티팩트 업로드 단계에서는 재설치하지 않습니다.
+매니페스트·잠금 파일 무결성 검사는 유지합니다.
+확인한 업스트림 SHA 출처와 중첩 작업의 주의 사항은 `README.md`를 참고하세요.
 
-Separately, once Dependabot opens its version-bump PR for `marked` (Beat 4), Agent Merge merges
-that too, the same way.
+**발표 요점:** *“코드를 빌드하고 배포하는 파이프라인도 코드 자체만큼 꼼꼼히 검토해야 합니다.”*
 
-**Talking point:** *"Agentic supply-chain hygiene — nobody clicked merge on that dependency bump."*
+## 장면 4 — AI를 활용한 보안 검토
 
-## Beat 3 — GitHub Actions (CI/CD)
+과거 `marked@0.3.19` 버전에는 높음 수준의 의존성 취약점이 있었습니다. 현재 버전은
+`marked@18.0.13`과 `dompurify@3.4.15`를 함께 사용합니다. 업그레이드하더라도
+**Marked는 위험한 HTML을 제거하지 않습니다**. HTML 정제와 이름·시각의 텍스트 전용 렌더링은
+XSS를 방지하는 별도의 보호 조치입니다.
 
-Show the now-hardened `deploy.yml` run: build → `npm audit` gate → deploy to Pages.
+과거 `src/lib/analytics-config.js`는 데모용 가짜 시크릿을 담은 예시 설정이었습니다.
+현재 버전에서는 파일, 가져오기 구문, 디버그 로그를 제거했습니다.
+시크릿 검사(Secret scanning)·푸시 보호(Push protection)의 탐지는 검증하지 않았습니다.
+토큰처럼 보이는 내용을 보여주거나 실제 증거 없이 경고가 발생했다고 주장하지 않습니다.
+의존성 검토(Dependency review)와 코드 검사(Code scanning)는 이 워크플로의 단계에 포함되지 않습니다.
 
-**Talking point:** *"The pipeline that builds and ships your code needs the same scrutiny as the
-code itself."*
+## 장면 5 — 검증 범위에 맞춘 개발 생애주기 정리
 
-## Beat 4 — AI-assisted security review
+배포 경로는 변경 제안 → 코드 리뷰 → 승인된 수동 병합 → 테스트·감사를 통과한 빌드
+→ `main` 푸시 시 GitHub Pages 배포이며, 저장소 설정에 따릅니다.
+검증하지 않은 에이전트 단계는 미검증으로 남겨 둡니다.
+테스트 통과는 시험한 동작의 증거이지 완전한 보안을 보장하지 않습니다.
 
-Point out, in whichever order they've actually surfaced:
+## 결과 확인
 
-- **Dependabot alert** on `marked@0.3.19` (`package.json`) — genuinely used by the feedback widget
-  to render submissions; old enough to predate output sanitisation.
-- **Secret scanning** flags the fake token in `src/lib/analytics-config.js` — clearly commented as
-  a demo placeholder, never a real credential.
+먼저 로컬 미리보기를 사용합니다. 기존 발표 자료의 공유 주소
+<https://ijhan-biz.github.io/ship-with-ai-demo/>는 공유용 변경의 PR이 병합되고 해당 커밋의 배포가 성공하면 그대로 사용할 수 있습니다.
+실제 게시 상태는 [ship-with-ai-demo Actions](https://github.com/ijhan-biz/ship-with-ai-demo/actions)와
+[Deployments](https://github.com/ijhan-biz/ship-with-ai-demo/deployments)에서 확인합니다.
+원본 리허설의 배포 성공 이력은 공유 저장소의 게시 상태를 뜻하지 않습니다.
+기존 페이지나 로컬 빌드를 방금 완료된 배포로 소개하지 않습니다.
 
-**Talking point:** *"This is the supply-chain layer — distinct from Beat 1's code review."*
+## 브라우저 인수 점검표 — 로컬 미리보기 전용
 
-## Beat 5 — End-to-end lifecycle automation
+아래는 변경 후 수행할 점검 항목이며, 공유 예제의 브라우저 점검을 완료했다는 기록이 아닙니다.
 
-Zoom out to the architecture slide:
+- 상단 탐색 메뉴, 홈 링크, 공급망 보안 → 직접 해보기를 통해 9개 페이지를 모두 방문합니다.
+  내부 경로와 리소스는 모두 `/ship-with-ai-demo/` 아래에 있어야 하며, 탐색 중 404가 발생하면 안 됩니다.
+  외부 `ship-with-ai-rehearsal` 링크는 원본의 수정·배포·한국어 버전 출처를 설명할 때만 사용합니다.
+- `#feedback-name`, `#feedback-message`, `#feedback-form`을 사용합니다. 이름을 입력한 Markdown 메시지와
+  이름을 비운 메시지를 차례로 저장합니다. 빈 이름은 ‘익명’으로 표시되어야 합니다.
+  `#feedback-list` 아래의 `.feedback-item`, `.meta`, `time`을 확인합니다.
+  최신 기록이 먼저 표시되고, 서식과 안전한 링크가 작동하며, 새로고침 후 두 기록이 모두 유지되어야 합니다.
+  피드백은 브라우저에만 저장되며 서버나 발표자에게 전송되거나 다른 기기와 동기화되지 않아야 합니다.
+- 이름의 마크업은 일반 텍스트여야 합니다. 메시지 Markdown의 스크립트·SVG·이미지·폼 요소와
+  이벤트 속성은 제거되어야 하며, `javascript:` 링크는 실행되지 않아야 합니다.
+  외부 이미지나 스크립트를 불러오면 안 됩니다. 이 검사를 통과하려고 Markdown을 비활성화하지 않습니다.
+- 공백만 있는 메시지: `#feedback-error[role="alert"]`가 표시되고 포커스를 받으며, 작성 중인 내용은 유지되어야 합니다.
+  HTML `maxlength`를 우회해 이름 100자·메시지 5,000자를 초과하는 입력으로 저장 단계의 제한을 확인합니다.
+- 테스트용 출처의 `ship-with-ai-feedback` 항목만 손상된 JSON이나 유효하지 않은 기록으로 설정합니다.
+  기존 내용이 있다면 손상 테스트 전에도 백업합니다. 새로고침 후 저장을 시도하면 명확한 복구 안내가 표시되고,
+  원본 저장 내용과 폼 입력값은 변경되지 않아야 합니다. 자동으로 덮어쓰면 안 됩니다.
+  복구할 때는 해당 테스트 항목을 **먼저 백업한 뒤 그 항목만 삭제**하고 새로고침합니다.
+  관련 없는 브라우저 저장소는 삭제하지 않습니다.
+- 읽기·접근자 차단, 용량 초과, 쓰기 실패를 재현합니다. 오류가 표시되고, 성공으로 잘못 안내하지 않으며,
+  작성 중인 내용과 기록이 유지되어야 합니다. 저장에 성공한 경우에만 입력란이 비워지고
+  `#feedback-status[role="status"]`에 ‘이 브라우저에 피드백을 저장했습니다.’가 표시되어야 합니다.
+- 기록이 100건이면 다음 저장 성공 시 가장 오래된 기록을 교체합니다. 저장 실패 시에는 삭제하면 안 됩니다.
 
-```
-Issue → Copilot drafts PR → Copilot Code Review → Agent Merge →
-GitHub Actions (build + supply-chain security + deploy) → GitHub Pages
-```
-
-**Talking point:** *"Set it up once; every future change keeps the supply chain healthy."*
-
-## Payoff
-
-Visit the deployed site's new/updated page live: *"The lesson you can read was just shipped
-through this exact pipeline."*
-
-## Optional beats (skip to stay tight)
-
-- **§5.4 — Missing SRI on a third-party CDN script.** If you add a `<script src="https://cdn…">`
-  tag without an `integrity`/`crossorigin` attribute, Copilot Code Review should flag it as a
-  second supply-chain beat.
-- **§5.6 — XSS via the outdated Markdown renderer.** Before the Beat 2 fix, submitting
-  `<img src=x onerror="alert('xss')">` in the feedback widget executes in the browser, because
-  `marked@0.3.19` doesn't sanitise. Both Copilot Code Review and CodeQL should flag it. Fix is
-  escaping/sanitising the rendered output.
-
-## What each tool is expected to catch
-
-| Seeded issue | Where | Caught by |
-|---|---|---|
-| Outdated `marked` dependency | `package.json` | Dependabot |
-| Unpinned third-party Action | `.github/workflows/deploy.yml` | Copilot Code Review |
-| Over-broad `permissions: write-all` | `.github/workflows/deploy.yml` | Copilot Code Review |
-| Fake committed token | `src/lib/analytics-config.js` | Secret scanning / push protection |
-| Missing input validation | `src/lib/feedback.js` | Copilot Code Review |
+내장 테스트는 순수 검증·저장 로직과 데이터 보존을 다룹니다.
+브라우저 렌더링, 화면 읽기 프로그램 동작, 원격 CI, 배포를 입증하지는 않습니다.
+브라우저 인수 점검은 별도로 수행하고 결과를 인계해야 합니다.
