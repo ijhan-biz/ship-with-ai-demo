@@ -1,99 +1,191 @@
 # Ship with AI
 
-Companion site + live demo repo for **AI Genius — Season 5, Episode 3: "Ship with AI: Review,
-Secure, and Deploy with Confidence."**
+**AI Genius 시즌 5 에피소드 3 — Ship with AI: AI로 완성하는 코드 리뷰부터 보안, 배포까지**의
+학습 사이트이자 안전한 공유용 한국어 예제 저장소입니다.
 
-This repo does two things at once:
+## 안전한 공유용 한국어 예제
 
-1. **Publishes the learning content** — a small Astro site covering the AI-assisted ship
-   pipeline: issue → Copilot-drafted PR → Copilot Code Review → Agent Merge → GitHub Actions
-   (build + supply-chain security) → GitHub Pages.
-2. **Is the demo subject** — the exact code, dependencies, and workflow reviewed, secured, and
-   deployed live on stream.
+이 저장소는 검증된 한국어 리허설 소스를 가져온 공유용 예제이며, 취약점을 의도적으로 남긴 데모가 아닙니다.
+9개 페이지로 구성된 Astro 사이트에서 코드 리뷰, 소프트웨어 공급망 보안, 배포를 설명합니다.
+직접 확인하지 않은 에이전트의 전체 실행 과정을 검증된 것으로 소개하지 않습니다.
 
-The security thread running through the demo is **OWASP Top 10:2025 A03 — Software Supply Chain
-Failures**: an outdated dependency, an unpinned CI/CD Action with an over-broad token, and a
-committed (fake) secret. See [`RUNSHEET.md`](./RUNSHEET.md) for the full walkthrough and
-[`src/pages/secure-supply-chain.astro`](./src/pages/secure-supply-chain.astro) for the plain-English
-explanation.
+- 공유 저장소: <https://github.com/ijhan-biz/ship-with-ai-demo>
+- 설정된 GitHub Pages 대상: <https://ijhan-biz.github.io/ship-with-ai-demo/>.
+  실제 게시 상태와 커밋은 이 저장소의 [Actions](https://github.com/ijhan-biz/ship-with-ai-demo/actions)와
+  [Deployments](https://github.com/ijhan-biz/ship-with-ai-demo/deployments)에서 확인하세요.
+- 기능·한국어 소스 기준:
+  [ship-with-ai-rehearsal 커밋 `be80d2111c8f8b9021d75a5577e7ff3df12a229e`](https://github.com/ijhan-biz/ship-with-ai-rehearsal/commit/be80d2111c8f8b9021d75a5577e7ff3df12a229e).
+  의존성·잠금 파일·피드백 위젯·저장 로직·레이아웃·44개 테스트·CI·Dependabot 설정을 그대로 유지하며,
+  공유 저장소의 경로와 설명을 조정하고 남아 있던 미사용 분석 설정 파일을 제거했습니다.
+- 원작 출처: [원본 업스트림 프로젝트](https://github.com/anothergeorgecoldham/ship-with-ai).
+  이 프로젝트를 바탕으로 만든 리허설 저장소의 초기 기준 SHA는
+  `7561fed570ac4e3840960d18ffcc18febdac4464`입니다.
+- 공유 저장소의 이전 seed 기준:
+  [ship-with-ai-demo 커밋 `a3e96f08013137c2f7cd8d409f937b60828f14fb`](https://github.com/ijhan-biz/ship-with-ai-demo/commit/a3e96f08013137c2f7cd8d409f937b60828f14fb).
+  별도 로컬 리허설 기준 `05cdada`와 각 저장소의 Git 이력에 과거 상태를 보존하며,
+  공유용 버전을 취약한 초기 상태로 유지하지 않습니다.
+  `marked@0.3.19`, 안전하지 않은 렌더링, 검증 누락, 과도한 워크플로 권한, 태그 기반 GitHub Actions,
+  데모용 가짜 시크릿을 담은 분석 설정이 포함되어 있었습니다. 현재 버전에서는 해당 가짜 설정,
+  가져오기 구문, 디버그 로그를 제거했습니다. 자격 증명 내용은 보여줄 필요가 없습니다.
+- 기대 결과: 한국어 입력·오류 안내를 포함한 테스트 44개 통과, 감사 취약점 0건, 9개 페이지 빌드 완료.
+  CI는 높음(high)·치명적(critical) 수준의 취약점을 차단합니다. 감사 통과가 모든 위험의 부재를 뜻하지는 않습니다.
+  시연을 위해 `main`을 과거 상태로 되돌리거나 취약한 과거 버전을 다시 배포하지 마세요.
 
-## Prerequisites (set these up before you record)
+GitHub Copilot 자동 코드 리뷰는 원본 리허설에서 별도로 시연되었습니다.
+이 공유 저장소의 자동 리뷰 규칙과 이용 자격은 별도 확인이 필요합니다. **이슈 → 클라우드 에이전트와
+Agent Merge는 아직 검증되지 않았습니다.** 일반적인 `allow_auto_merge` 설정은 에이전트가
+리뷰 의견을 자동으로 수정하도록 활성화하는 기능이 아닙니다.
+인계받은 원본 리허설의 수정·배포 이력은 다음과 같습니다. 이번 로컬 작업에서 원격 결과를 새로 조회한 것은 아닙니다.
 
-Learned the hard way while standing this repo up — none of this is obvious from the repo alone,
-and if any one piece is missing the relevant beat just silently won't fire.
+- 보안 수정: [ship-with-ai-rehearsal PR #34](https://github.com/ijhan-biz/ship-with-ai-rehearsal/pull/34)는
+  **사람의 명시적 승인 후 수동 병합**되었습니다.
+  [병합 커밋 `cfa05f3d682d7cf410024b019b099162b0e001b6`](https://github.com/ijhan-biz/ship-with-ai-rehearsal/commit/cfa05f3d682d7cf410024b019b099162b0e001b6),
+  [성공한 배포 실행 `36239337726`](https://github.com/ijhan-biz/ship-with-ai-rehearsal/actions/runs/36239337726).
+- 한국어 버전: [ship-with-ai-rehearsal PR #39](https://github.com/ijhan-biz/ship-with-ai-rehearsal/pull/39),
+  [병합 커밋 `be80d2111c8f8b9021d75a5577e7ff3df12a229e`](https://github.com/ijhan-biz/ship-with-ai-rehearsal/commit/be80d2111c8f8b9021d75a5577e7ff3df12a229e),
+  [성공한 배포 실행 `36400202154`](https://github.com/ijhan-biz/ship-with-ai-rehearsal/actions/runs/36400202154).
 
-### Account / license
+**위 PR 번호는 `ship-with-ai-rehearsal`의 번호이며 이 공유 저장소의 PR 번호와 다릅니다.**
+이 이력은 에이전트의 자동 수정·병합이나 공유 저장소의 배포 성공을 입증하지 않습니다.
+공유용 변경의 PR이 병합되고 해당 커밋의 배포가 성공한 뒤에는 발표 자료의 기존
+`https://ijhan-biz.github.io/ship-with-ai-demo/` 링크를 그대로 사용할 수 있습니다.
+녹화 점검 항목은 [`RUNSHEET.md`](./RUNSHEET.md)를 참고하세요.
 
-- **An active Copilot license that includes code review + the coding agent** — Copilot Pro, Pro+,
-  Max, Business, or Enterprise. Copilot Free does not expose these features at all.
-- On your profile → **Settings → Copilot → Features**, confirm these two are **Enabled**:
-  - **Copilot code review** — "Use Copilot to review your code and generate pull request summaries."
-  - **Copilot cloud agent** — "Delegate tasks to Copilot cloud agent in repositories where it is
-    enabled." (This is what backs the coding agent and Agent Merge.)
-  - If your seat comes from an org/enterprise, these may show a shield icon meaning the org
-    enforces them — that's fine, it just means you can't turn them off, not that they're broken.
+## 기능 제공 범위와 배포 전제 조건
 
-### Repo settings (owner/admin access required)
+기능과 요금은 요금제, 저장소 공개 범위, 조직 정책에 따라 달라집니다.
+[GitHub Copilot 요금제](https://docs.github.com/en/copilot/get-started/plans)와
+[GitHub 보안 문서](https://docs.github.com/en/code-security)를 확인하세요.
+공개 저장소라고 모든 기능이 무료인 것은 아닙니다. 자동 코드 리뷰에는 지원 대상 계정과 규칙 설정이 필요합니다.
 
-- **Settings → Rules → Rulesets → New ruleset** — add the **"Automatically request Copilot code
-  review"** rule targeting your default branch. Without this, Copilot never reviews a PR
-  automatically; you'd have to request it by hand every time.
-- **Settings → General → Pull Requests → Allow auto-merge** — must be checked, or Agent Merge has
-  nothing to merge into even when checks are green. (Also settable via API:
-  `gh api -X PATCH /repos/<owner>/<repo> -f allow_auto_merge=true`.)
-- **Settings → Pages → Source: GitHub Actions** — required before `deploy.yml` can publish
-  anything; if you skip this, every push to `main` fails at the `deploy` job with a 404-style
-  error, even though `build` succeeds. Can also be set via API:
-  `gh api -X POST /repos/<owner>/<repo>/pages -f build_type=workflow`.
-- **Settings → Code security** — turn on Dependabot alerts, Dependabot security updates,
-  dependency review, code scanning, and secret scanning with push protection. These are what
-  actually surface the seeded issues in `RUNSHEET.md` §5.1 and §5.3.
+승인 후 배포하려면 GitHub Pages의 소스(Source)를 **GitHub Actions**로 설정하고
+`github-pages` 환경에서 배포를 허용해야 합니다. 병합 전 CI 검사 필수 여부는 브랜치 규칙에 따릅니다.
+의존성 검토(Dependency review), 코드 검사(Code scanning), 시크릿 검사(Secret scanning)는
+별도 설정이 필요하며, 이 워크플로는 이를 구현하거나 검증하지 않습니다. 로컬 설정은 원격 설정을 변경하지 않습니다.
 
-### Local `gh`/git auth gotcha
-
-If `git push` is rejected with *"refusing to allow an OAuth App to create or update workflow
-`.github/workflows/...` without `workflow` scope"*, your active `gh`/git credential doesn't have
-the `workflow` OAuth scope. Either `gh auth refresh -h github.com -s workflow`, or push using a
-credential/token that already has it (e.g. `gh auth token` from an account with `workflow` in its
-scopes, passed via `git -c http.extraHeader=...`).
-
-## Run it locally
+## 로컬 실행
 
 ```bash
-git clone https://github.com/anothergeorgecoldham/ship-with-ai.git
-cd ship-with-ai
-npm install
+git clone https://github.com/ijhan-biz/ship-with-ai-demo.git
+cd ship-with-ai-demo
+# CI와 동일하게 Node 22 계열의 22.12+ 버전을 사용합니다.
+npm ci
+npm test
+npm audit --audit-level=high
+npm run build
 npm run dev
 ```
 
-Then open the printed local URL. `npm run build` produces the static site in `dist/`;
-`npm run preview` serves that build locally — the safest way to look at the site without
-touching the live repo, its workflow runs, or any seeded issue.
+위 명령은 공유 저장소를 복제합니다. 확인할 변경 사항이 복제한 커밋에 포함되어 있는지 확인하세요.
+`http://localhost:4321/ship-with-ai-demo/`을 여세요(Astro가 출력한 포트에 맞게 조정).
+`npm run build`는 `dist/`에 결과를 생성하며, `npm run preview`는 같은 기본 경로로 로컬 미리보기를 제공합니다.
+백엔드, 외부 스크립트, 분석 서비스는 사용하지 않습니다.
 
-## Structure
+## 피드백 보안 및 저장 정책
+
+`marked@18.0.13`은 Markdown을 해석하지만 **위험한 HTML을 제거하지는 않습니다**.
+`dompurify@3.4.15`는 텍스트 서식, 목록, 표, 코드, 링크만 허용하도록 결과를 정제합니다.
+이미지, 스크립트, SVG, 폼, 이벤트 처리기, 스타일, 안전하지 않은 URL 스킴은 제외합니다.
+이름과 시각은 텍스트로 생성하며 HTML에 삽입하지 않습니다.
+
+입력은 텍스트여야 합니다. 이름과 메시지의 앞뒤 공백을 제거하며, 빈 이름은 ‘익명’으로 표시하고
+빈 메시지는 거부합니다. 공백 제거 후 길이 제한은 이름 100자, 메시지 5,000자입니다(JavaScript 문자열 길이 기준).
+최근 100건만 보관하며, 저장에 성공한 경우에만 가장 오래된 기록을 교체합니다.
+피드백은 **이 브라우저에만 저장**되며 서버나 발표자에게 전송되지 않고 다른 기기와 동기화되지 않습니다.
+저장 성공 문구는 ‘이 브라우저에 피드백을 저장했습니다.’입니다.
+
+각 기록에는 `name`, `message`, 유효한 정규 UTC 타임스탬프 `submittedAt`만 있어야 합니다.
+기존의 유효한 기록은 계속 읽을 수 있습니다. 잘못된 JSON, 유효하지 않은 기록·날짜, 크기 제한을 넘는
+과거 기록이 있으면 접근 가능한 오류 메시지를 표시하고 저장을 차단합니다. 기록을 **자동으로 버리거나 덮어쓰지 않습니다**.
+복구가 필요하면 브라우저 개발자 도구에서 `ship-with-ai-feedback` localStorage 항목을 먼저
+내보내거나 백업한 뒤 **해당 항목만 삭제**하고 새로고침하세요. 사용자가 직접 선택하는 초기화 절차입니다.
+읽기 실패, 저장소 사용 불가, 용량 초과, 쓰기 실패는 화면에 표시하며, 실패 시 입력값과 기존 저장 내용은 유지합니다.
+폼은 저장에 성공한 경우에만 초기화합니다.
+
+## 구조
 
 ```
 src/
-  pages/            content pages (home, pipeline, one per capability, secure-supply-chain, DIY)
+  pages/            콘텐츠 페이지(홈, 파이프라인, 기능별 페이지, secure-supply-chain, 직접 해보기)
   components/
-    FeedbackWidget.astro   the one interactive feature — questions/feedback, client-side only
-  lib/                widget logic (submit handler + a demo-only fake config)
-astro.config.mjs      static output, `site`/`base` set for GitHub Pages project-page hosting
+    FeedbackWidget.astro   유일한 상호작용 기능 — 질문·피드백, 브라우저에서만 처리
+  lib/                검증을 포함한 브라우저 저장소 로직
+test/                 내장 node:test / assert 테스트(추가 테스트 의존성 없음)
+astro.config.mjs      정적 출력, GitHub Pages 프로젝트 호스팅용 `site`/`base` 설정
 .github/
-  workflows/deploy.yml     build → security gate → deploy to Pages
-  dependabot.yml           npm + GitHub Actions version updates
-  ISSUE_TEMPLATE/feature-request.md   the issue used to kick off the live demo
+  workflows/deploy.yml     설치 → 테스트 → 보안 게이트 → 빌드·업로드 → GitHub Pages 배포
+  dependabot.yml           npm 및 GitHub Actions 버전을 갱신하는 Dependabot 설정
+  ISSUE_TEMPLATE/feature-request.md   향후 기능 요청에 선택적으로 사용할 템플릿
 ```
 
-## Deploying
+## 배포
 
-Pushing to `main` triggers `.github/workflows/deploy.yml`, which builds the site and deploys it
-to GitHub Pages (repo setting: **Pages → Source: GitHub Actions**). The workflow ships with two
-intentionally seeded CI/CD issues used in the live demo — see `RUNSHEET.md`.
+명시적 승인 후 `main`에 푸시하면 배포할 수 있습니다. `main` 대상 PR과
+`workflow_dispatch`는 검사·빌드·업로드만 수행하며 **배포하지 않습니다**. `main`에서 수동 실행해도 동일합니다.
+배포 조건은 `github.ref == 'refs/heads/main' && github.event_name == 'push'`로 유지됩니다.
 
-## Re-delivering this demo
+취약점 검사 보안 게이트는 높음·치명적 수준의 취약점 발견 시 실패하며, 무시하거나 오류 후 계속 진행하지 않습니다.
+내장 테스트는 Astro 빌드 전에 실행됩니다. 기본 토큰 권한은 `contents: read`이며,
+업스트림 deploy-pages 문서에 따라 배포 작업에만 `pages: write`와 `id-token: write`를 부여합니다.
+Node 버전 입력값은 22입니다(Astro 최소 요구 버전은 22.12).
 
-If you're presenting this session in another language or region, `RUNSHEET.md` has the full
-beat-by-beat script, including the exact issue text to file and what each tool should flag.
-Nothing in this repo needs to be pre-fixed — the seeded issues are meant to still be present when
-you start the recording.
+원본 리허설 기록에 따르면 직접 참조하는 GitHub Actions의 고정 SHA는 2026-09-26에 업스트림을 대상으로 읽기 전용 명령
+`gh api repos/<owner>/<repo>/commits/<tag>`를 실행해 확인했습니다.
+
+| GitHub Actions 작업 / 업스트림 태그 | 확인한 커밋 SHA |
+|---|---|
+| `actions/checkout` / `v4` | `11d5960a326750d5838078e36cf38b85af677262` |
+| `actions/setup-node` / `v4` | `49933ea5288caeca8642d1e84afbd3f7d6820020` |
+| `actions/upload-pages-artifact` / `v3` | `56afc609e74202658d3ffba0e8f6dda462b719fa` |
+| `actions/deploy-pages` / `v4` | `d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e` |
+
+의존성은 `npm ci`로 한 번만 설치한 뒤 테스트, 감사, 빌드를 직접 수행합니다.
+이전 Astro 복합 작업은 `npm install`을 다시 실행해 Linux 실행기의 잠금 파일에서
+플랫폼별 선택 의존성 메타데이터를 변경했고,
+[ship-with-ai-rehearsal 실행 `36238441226`](https://github.com/ijhan-biz/ship-with-ai-rehearsal/actions/runs/36238441226)의
+무결성 검사를 실패시켰습니다.
+명시적인 빌드·아티팩트 업로드 단계로 이러한 재설치를 피합니다.
+빌드 후 매니페스트·잠금 파일 검사는 아티팩트 업로드 전에 계속 수행합니다.
+SHA로 고정한 GitHub Pages 업로더는 내부에서 `actions/upload-artifact@v4`를 참조합니다.
+직접 참조를 고정해도 중첩된 GitHub Actions 작업까지 재귀적으로 고정되지는 않습니다.
+체크아웃 시 저장소 자격 증명을 남기지 않습니다.
+외부 작업을 저장소에 복사해 포함하거나 에이전트 자동화를 추가하지 않았습니다.
+
+## 공유 예제의 로컬 검증 기록 — 2026-09-28
+
+- Node 22.23.2에서 `npm test` **44개 통과**, `npm audit --audit-level=high` **취약점 0건**,
+  `npm run build` **9개 페이지 빌드 완료**를 확인했습니다.
+- 빌드된 9개 페이지의 `lang="ko"`와 내부 링크·리소스 92개의 `/ship-with-ai-demo/` 경로 및
+  대상 파일을 확인했습니다. 원본 리허설로 향하는 외부 링크는 홈의 출처 안내 PR #34·#39뿐입니다.
+- 의존성·잠금 파일·피드백 위젯·저장 로직·레이아웃·테스트·CI·Dependabot은 원본 리허설
+  `be80d2111c8f8b9021d75a5577e7ff3df12a229e`와 바이트 단위로 동일합니다. `git diff --check`도 통과했습니다.
+- 이 기록은 로컬 테스트·정적 출력 검사 결과입니다. 브라우저 인수 점검과 공유 저장소의
+  PR·원격 CI·배포는 이 검증에 포함되지 않으며, 각각 실제 결과를 확인해야 합니다.
+
+## 원본 리허설의 과거 로컬 검증 기록 — 2026-09-26
+
+아래는 당시 원본 리허설의 검증 기록이며, 공유 저장소의 테스트나 브라우저 품질 검증 결과가 아닙니다.
+
+- 기준 버전: Node 26.0.0에서 9개 페이지 빌드에 성공했습니다. 감사는 예상대로 `marked` 의존성의
+  높음 수준 취약점 1건으로 실패했습니다. 당시에는 테스트·린트·타입 검사 스크립트가 없었습니다.
+- 당시 보안 수정 버전: `npm exec --package=node@22.23.2`로 준비한 실제 **Node 22.23.2**와 npm 11.12.1에서
+  `npm ci && npm test && npm audit --audit-level=high && npm run build`를 성공적으로 실행했습니다.
+  **당시 내장 테스트 34개 통과, 감사 취약점 0건, 9개 페이지 빌드 완료**를 확인했습니다.
+  이후 한국어 오류 안내 테스트 10개가 추가되어 현재 소스에는 총 44개가 있습니다.
+  로컬의 Astro 방식 `npm install`은 매니페스트·잠금 파일을 변경하지 않았으나, 이후 원격 Linux 실행에서
+  플랫폼별 잠금 파일 변경이 확인되어 현재 CI는 해당 단계를 피합니다.
+- 확인한 의존성 버전: Marked 18.0.13, DOMPurify 3.4.15, Astro 7.3.3, 직접 의존성 js-yaml 5.4.2,
+  전이 의존성 js-yaml 4.3.2, sharp 0.35.4, svgo 4.1.0, devalue 5.9.4.
+  당시 보안 수정에서는 Marked와 새 HTML 정제 라이브러리의 의존성 트리만 변경했습니다.
+- 정적 출력 검사: 9개 페이지와 내부 링크·리소스 92개 모두 리허설 기본 경로를 사용하고 빌드된 파일로
+  연결되었습니다. 워크플로 YAML을 해석해 직접 참조 SHA 고정, 작업 권한, Node 입력값,
+  테스트·감사 단계, 배포 조건을 확인했습니다.
+- 당시 로컬 브라우저 인수 점검 통과: 탐색 대상 9개 모두 응답 코드 200을 반환했고, Markdown 및
+  익명 피드백은 새로고침 후에도 유지되었습니다. 이름의 마크업은 일반 텍스트로 표시되었고,
+  안전하지 않은 HTML·URL은 제거되었습니다. 저장소 손상·사용 불가·용량 초과 시 오류가 표시되면서
+  작성 중인 내용과 기존 기록은 유지되었습니다. 애플리케이션 오류나 누락된 리소스는 없었습니다.
+- 당시 고정된 밝은 색상 팔레트에 밝은 색상 모드를 명시해, 운영체제의 어두운 모드 설정으로 인해
+  어두운 배경에 어두운 글자가 표시되던 문제를 해결했습니다. 너비 390px 모바일 화면에서 가로 넘침은 없었습니다.
+- 이 로컬 결과만으로 원격 CI, GitHub Pages 배포, 실제 보안 검사 경고, 미검증 에이전트 동작을
+  입증할 수는 없습니다. 이후의 사용자 제공 병합·배포 이력은 위에 별도로 구분했습니다.
+  외부 린터나 타입 검사기는 추가하지 않았습니다.
